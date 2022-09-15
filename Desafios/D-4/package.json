@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "express": "^4.18.1",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^2.0.19"
+  },
+  "name": "ejercicioenclase",
+  "description": "Don't forget to install dependencies with: \r ```\r npm i\r ```\r To run the project with node\r ```\r npm start\r ```\r To run the project with nodemon (you must have nodemon installed globally on your device)\r ```\r npm run start-dev\r ```",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    "start-dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
