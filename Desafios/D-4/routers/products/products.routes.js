@@ -1,102 +1,75 @@
 const express = require("express");
 const { products } = require("../../data/data");
-const loggerMiddleware = require("../../middlewares/logger");
 const router = express.Router();
 
-//Middlewares
-
-//Routes
-router.get("/", loggerMiddleware, (req, res) => {
-  const { maxPrice, search } = req.query;
-  let productsResponse = [...products];
-  if (Object.keys(req.query).length > 0) {
-    if (maxPrice) {
-      if (isNaN(+maxPrice)) {
-        return res
-          .status(400)
-          .json({ success: false, error: "maxPrice must be a valid number" });
-      }
-      productsResponse = productsResponse.filter(
-        (product) => product.price <= +maxPrice
-      );
-    }
-    if (search) {
-      productsResponse = productsResponse.filter((product) =>
-        product.name.toLowerCase().startsWith(search.toLowerCase())
-      );
-    }
-    return res.json({ success: true, result: productsResponse });
-  }
-  return res.json({ success: true, result: productsResponse });
+router.get("/", (req, res) => {
+  res.send(products);
 });
-
-router.get("/:productId", (req, res) => {
-  const { productId } = req.params;
-  const product = products.find((product) => product.id === +productId);
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+  const product = products.find((product) => product.id === +id);
   if (!product) {
     return res.status(404).json({
       success: false,
-      error: `Product with id: ${productId} does not exist!`,
+      error: `Producto con id: ${id} no existe`,
     });
   }
   return res.json({ success: true, result: product });
 });
-
 router.post("/", (req, res) => {
-  const { name, description, price, image } = req.body;
-  if (!name || !description || !price || !image) {
-    return res.status(400).json({ succes: false, error: "Wrong body format" });
+  const { title, price, thumbnail } = req.body;
+  if (!title || !price || !thumbnail) {
+    return res
+      .status(400)
+      .json({ succes: false, error: "Formato de cuerpo incorrecto" });
   }
   const newProduct = {
     id: products.length + 1,
-    name,
-    description,
+    title,
     price: +price,
     image,
   };
   products.push(newProduct);
-  return res.json({ success: true, result: newProduct });
+  return res.json(newProduct);
 });
 
-router.put("/:productId", (req, res) => {
+router.put("/:id", (req, res) => {
   const {
-    params: { productId },
-    body: { name, description, price, image },
+    params: { id },
+    body: { title, price, thumbnail },
   } = req;
-  if (!name || !description || !price || !image) {
-    return res.status(400).json({ success: false, error: "Wrong body format" });
+  if (!title || !price || !thumbnail) {
+    return res
+      .status(400)
+      .json({ success: false, error: "Formato de cuerpo incorrecto" });
   }
-  const productIndex = products.findIndex(
-    (product) => product.id === +productId
-  );
+  const productIndex = products.findIndex((product) => product.id === +id);
   if (productIndex < 0)
     return res.status(404).json({
       success: false,
-      error: `Product with id: ${productId} does not exist!`,
+      error: `Producto con id: ${id} no existe`,
     });
   const newProduct = {
     ...products[productIndex],
-    name,
-    description,
-    price,
-    image,
+    id: [productIndex],
+    title,
+    price: +price,
+    thumbnail,
   };
   products[productIndex] = newProduct;
   return res.json({ success: true, result: newProduct });
 });
 
-router.delete("/:productId", (req, res) => {
-  const { productId } = req.params;
-  const productIndex = products.findIndex(
-    (product) => product.id === +productId
-  );
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  const productIndex = products.findIndex((product) => product.id === +id);
   if (productIndex < 0)
     return res.status(404).json({
       success: false,
-      error: `Product with id ${productId} does not exist!`,
+      error: `Producto con id: ${id} no existe`,
     });
   products.splice(productIndex, 1);
-  return res.json({ success: true, result: "product correctly eliminated" });
+  return res.json({ success: true, result: "producto eliminado" });
 });
 
 module.exports = router;

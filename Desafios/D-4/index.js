@@ -1,18 +1,16 @@
 const express = require("express");
 const apiRoutes = require("./routers/app.routers");
-const loggerMiddleware = require("./middlewares/logger");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Middlewares
+//Middlewares a nivel de aplicación
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
-app.use(loggerMiddleware);
 
-// Routes
+//Routes
 app.use("/api", apiRoutes);
+app.use(express.static("public"));
 
 const connectedServer = app.listen(PORT, () => {
   console.log(`Server is up and running on port ${PORT}`);
