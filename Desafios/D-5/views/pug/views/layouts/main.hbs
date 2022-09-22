@@ -1,0 +1,16 @@
+<h1>Main HBS</h1>
+{{>economicProducts}}
+
+{{#if mostrarProductos}}
+    <div style="display:flex; flex-wrap:wrap; padding:10px;">
+    {{#each products}}
+    <div>
+        <div style="height:250px; width:250px; margin:16px;">
+            <img src={{this.thumbnail}} alt={{this.title}} style="border-radius:5px; height:150px; width:150px;">
+        </div>
+        <h4>{{this.title}}</h4>
+
+    </div>
+    {{/each}}
+    </div>
+{{/if}}
