@@ -1,0 +1,45 @@
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"/>
+  <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <div><h3 style="text-align: center; margin-top: 16px;"> Agrega un producto! </h3></div>
+      <form id="productsForm" class="" action="/api/products" method="post">
+        
+        <div style="margin-bottom: 16px;">
+          <div style="display: flex;justify-content: center;align-items: center;flex-direction: column;">
+            <label for="nombre"> Nombre: </label>
+            <br>
+            <input type="text" name="title" id="nombre" class="input-file">
+          </div>
+          <div style="display: flex;justify-content: center;align-items: center;flex-direction: column;">
+            <label for="precio"> Precio: </label>
+            <br>
+            <input type="number" name="price" id="precio" step=".01" class="input-file">
+          </div>
+          <div style="display: flex;justify-content: center;align-items: center;flex-direction: column;">
+            <label for="imagen">Imagen:</label>
+            <br>
+            <input type="text" name="thumbnail" id="imagen" class="input-file">
+          </div>
+          <div style="display: flex; justify-content: center; align-items: center;"><input type="submit" value="Crear producto" class="submit-button"></div>
+        </div>
+      </form>
+    </div>
+    <div id="products" class="m-3"></div>
+    <form id="form-chat" style="display: flex; justify-content: center;flex-direction: column; align-items: center; background-color: rgb(57, 56, 56);">
+        <h3 style="margin-top: 30px;">Chat</h3>
+          <input margin-bottom: 30px;" id="username" type="text" placeholder="nombre" required/>
+          <input id="text" type="text" placeholder="" required/>
+          <button type="submit" style="margin-top: 30px;">Enviar</button>
+        <hr/>
+        <div id="chat" class="div-chat"></div>
+        <hr/>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
+    integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/socket.io/socket.io.js" defer></script>
+    <script src="./main.js" defer></script>
+  </body>
+</html>
