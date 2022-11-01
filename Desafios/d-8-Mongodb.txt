@@ -50,7 +50,7 @@ db.productos.estimatedDocumentCount()
 5)Realizar un CRUD sobre la colección de productos:
     a- Agregar un producto más en la colección de productos 
     
-    db.productos.insertOne({itle:"pan pero mas caro", price:4950"})
+    db.productos.insertOne({title:"pan pero mas caro", price:4950"})
 
     b- Realizar una consulta por nombre de producto específico:
         I) Listar los productos con precio menor a 1000 pesos.
